@@ -42,11 +42,28 @@ var connection = mysql.createConnection({
   database: "u611574828_vet"
 });
 
-connection.connect();
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+
+  console.log('connected as id ' + connection.threadId);
+});
 
 connection.query('SELECT * FROM w001_usuarios', function (error, results, fields) {
   if (error) throw error;
-  console.log('The solution is: ', results[0].str_nombres);
+  console.log('str_nombres: ', results[0].str_nombres);
+  
+  var messages = [{  
+  id: 2,
+  text: results[0].str_nombres,
+  author: "str_nombres"
+}];
+
+ io.sockets.emit('messages', messages);
+
+
 });
 
 connection.end();
