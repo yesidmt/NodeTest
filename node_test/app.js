@@ -5,22 +5,13 @@ var methodOverride = require("method-override");
 var server = require('http').Server(app);  
 var io = require('socket.io')(server);
 
-
-var express = require("express"),  
-    app = express(),
-    bodyParser  = require("body-parser"),
-    methodOverride = require("method-override");
-    mongoose = require('mongoose');
-
-app.use(bodyParser.urlencoded({ extended: false }));  
-app.use(bodyParser.json());  
+// Middlewares
+app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(bodyParser.json()); 
 app.use(methodOverride());
 
 var router = express.Router();
 
-router.get('/', function(req, res) {  
-   res.send("Hello World!");
-});
 
 app.use(router);
 
@@ -45,17 +36,35 @@ testController.route('/socket')
 
 app.use('/api', testController);
  
- 
- 
- 
- 
 
  
- 
- // Start server
-app.listen(8000, function() {
- console.log("Node server running on http://localhost:8000");
+var messages = [{  
+  id: 1,
+  text: "mensaje",
+  author: "test"
+}];
+
+app.use(express.static('public'));
+
+app.get('/hello', function(req, res) {  
+  res.status(200).send("");
 });
- 
- 
- 
+
+io.on('connection', function(socket) {  
+  //console.log('Alguien se ha conectado con Sockets');
+  socket.emit('messages', messages);
+
+  socket.on('new-message', function(data) {
+    messages.push(data);
+
+    io.sockets.emit('messages', messages);
+  });
+});
+
+
+
+server.listen(8001, function() {  
+  console.log("Servidor corriendo en http://localhost:8001");
+});
+
+

@@ -10,7 +10,32 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); 
 app.use(methodOverride());
 
+var router = express.Router();
 
+
+app.use(router);
+
+
+var Ctrl = require('./controller/testController');
+
+// API routes
+var testController = express.Router();
+
+testController.route('/testController')  
+  
+  .get(Ctrl.testJson);
+
+app.use('/api', testController);
+
+
+
+
+testController.route('/socket')  
+  
+  .get(Ctrl.socket);
+
+app.use('/api', testController);
+ 
 
  
 var messages = [{  
