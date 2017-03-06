@@ -16,7 +16,7 @@ app.get('/hello', function(req, res) {
 });
 
 io.on('connection', function(socket) {  
-  console.log('Alguien se ha conectado con Sockets');
+  //console.log('Alguien se ha conectado con Sockets');
   socket.emit('messages', messages);
 
   socket.on('new-message', function(data) {
@@ -29,3 +29,24 @@ io.on('connection', function(socket) {
 server.listen(8000, function() {  
   console.log("Servidor corriendo en http://localhost:8000");
 });
+
+
+
+
+
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host: "31.220.104.1",
+  user: "u611574828_root",
+  password: "desarrollo2016",
+  database: "u611574828_vet"
+});
+
+connection.connect();
+
+connection.query('SELECT * FROM w001_usuarios', function (error, results, fields) {
+  if (error) throw error;
+  console.log('The solution is: ', results[0].str_nombres);
+});
+
+connection.end();
