@@ -10,33 +10,30 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); 
 app.use(methodOverride());
 
-var router = express.Router();
 
 
-app.use(router);
-
-
-var Ctrl = require('./controller/testController');
 
 // API routes
+var router = express.Router();
+app.use(router);
+
+var Ctrl = require('./controller/testController');
 var testController = express.Router();
 
 testController.route('/testController')  
-  
-  .get(Ctrl.testJson);
+    .get(Ctrl.testJson);
 
 app.use('/api', testController);
-
-
-
 
 testController.route('/socket')  
-  
   .get(Ctrl.socket);
-
 app.use('/api', testController);
  
-
+//
+ 
+ 
+ 
+ //Servidor websocket
  
 var messages = [{  
   id: 1,
@@ -45,7 +42,6 @@ var messages = [{
 }];
 
 app.use(express.static('public'));
-
 app.get('/hello', function(req, res) {  
   res.status(200).send("");
 });
@@ -60,7 +56,7 @@ io.on('connection', function(socket) {
     io.sockets.emit('messages', messages);
   });
 });
-
+//
 
 
 server.listen(8001, function() {  
