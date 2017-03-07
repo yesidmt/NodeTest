@@ -1,5 +1,7 @@
 var socket = io.connect('http://localhost:8001', { 'forceNew': true });
-
+socket.on('connect', function (data) {
+        socket.emit('storeClientInfo', { customId:"000CustomIdHere0000" });
+    });
 socket.on('messages', function(data) {  
   console.log(data);
   render(data);

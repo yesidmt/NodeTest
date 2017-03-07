@@ -11,8 +11,6 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 
 
-
-
 // API routes
 var router = express.Router();
 app.use(router);
@@ -31,8 +29,6 @@ app.use('/api', testController);
  
 //
  
- 
- 
  //Servidor websocket
  
 var messages = [{  
@@ -45,9 +41,25 @@ app.use(express.static('public'));
 app.get('/hello', function(req, res) {  
   res.status(200).send("");
 });
+//
+
+ var clients =[];
 
 io.on('connection', function(socket) {  
-  //console.log('Alguien se ha conectado con Sockets');
+  console.log('Alguien se ha conectado con Sockets');
+ console.log('connection :', socket.request.connection._peername);
+ socket.on('storeClientInfo', function (data) {
+
+            var clientInfo = new Object();
+            clientInfo.customId         = data.customId;
+            clientInfo.clientId     = socket.id;
+            clients.push(clientInfo);
+			
+			 console.log(clients); 
+        });
+  
+ console.log("array ids"+clients); 
+ 
   socket.emit('messages', messages);
 
   socket.on('new-message', function(data) {
