@@ -37,10 +37,10 @@ var messages = [{
   author: "test"
 }];
 
-app.use(express.static('public'));
-app.get('/hello', function(req, res) {  
-  res.status(200).send("");
-});
+//app.use(express.static('public'));
+//app.get('/hello', function(req, res) {  
+  //res.status(200).send("");
+//});
 //
 
  var clients =[];
@@ -51,7 +51,7 @@ io.on('connection', function(socket) {
  socket.on('storeClientInfo', function (data) {
 
             var clientInfo = new Object();
-            clientInfo.customId         = data.customId;
+            clientInfo.customId     = data.customId;
             clientInfo.clientId     = socket.id;
             clients.push(clientInfo);
 			
@@ -76,3 +76,4 @@ server.listen(8001, function() {
 });
 
 
+//http://stackoverflow.com/questions/35680565/sending-message-to-specific-client-in-socket-io
