@@ -37,10 +37,10 @@ var messages = [{
         author: "test"
     }];
 
-app.use(express.static('public'));
-app.get('/hello', function(req, res) {  
-res.status(200).send("");
-});
+//app.use(express.static('public'));
+//app.get('/hello', function(req, res) {  
+//res.status(200).send("");
+//});
 //
 
 var clients = [];
