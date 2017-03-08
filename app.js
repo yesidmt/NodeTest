@@ -69,9 +69,9 @@ io.on('connection', function(socket) {
   });
 });
 //
+const port = process.env.PORT || 8001  ;
 
-
-server.listen(8001, function() {  
+server.listen(port, function() {  
   console.log("Servidor corriendo en http://localhost:8001");
 });
 
