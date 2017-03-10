@@ -29,6 +29,19 @@ app.use('/api', testController);
 
 //
 
+var CtrlUtilidades = require('./controller/utilidades');
+var utilidades = express.Router();
+
+utilidades.route('/dateServer')
+        .get(CtrlUtilidades.getDateServer);
+
+app.use('/api', utilidades);
+
+utilidades.route('/login')
+        .post(CtrlUtilidades.postLogin);
+app.use('/api', utilidades);
+
+
 //Servidor websocket
 
 var messages = [{
@@ -77,3 +90,4 @@ server.listen(port, function () {
 
 
 //http://stackoverflow.com/questions/35680565/sending-message-to-specific-client-in-socket-io
+//https://davidwalsh.name/3d-websockets

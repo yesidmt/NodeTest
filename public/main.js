@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost:8001', { 'forceNew': true });
+var socket = io.connect('https://ws-vet-node.herokuapp.com/', { 'forceNew': true });
 socket.on('connect', function (data) {
         socket.emit('storeClientInfo', { customId:"000CustomIdHere0000" });
     });
