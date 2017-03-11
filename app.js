@@ -29,17 +29,17 @@ app.use('/api', testController);
 
 //
 
-var CtrlUtilidades = require('./controller/utilidades');
-var utilidades = express.Router();
+//var CtrlUtilidades = require('./controller/utilidades');
+//var utilidades = express.Router();
 
-utilidades.route('/dateServer')
-        .get(CtrlUtilidades.getDateServer);
+//utilidades.route('/dateServer')
+  //      .get(CtrlUtilidades.getDateServer);
 
-app.use('/api', utilidades);
+//app.use('/api', utilidades);
 
-utilidades.route('/login')
-        .post(CtrlUtilidades.postLogin);
-app.use('/api', utilidades);
+//utilidades.route('/login')
+  //      .post(CtrlUtilidades.postLogin);
+//app.use('/api', utilidades);
 
 
 //Servidor websocket
