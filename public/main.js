@@ -1,6 +1,14 @@
-var socket = io.connect('https://ws-vet-node.herokuapp.com/', { 'forceNew': true });
+var socket = io.connect('http://192.168.137.1:8001/', { 'forceNew': true });
 socket.on('connect', function (data) {
-        socket.emit('storeClientInfo', { customId:"000CustomIdHere0000" });
+       
+    var mens = JSON.stringify({
+
+            id: "test@gmail.com"
+           
+           
+        });
+    
+    socket.emit('storeClientInfo',mens);
     });
 socket.on('messages', function(data) {  
   console.log(data);

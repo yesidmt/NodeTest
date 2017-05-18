@@ -62,22 +62,27 @@ io.on('connection', function (socket) {
     console.log('Alguien se ha conectado con Sockets');
     console.log('connection :', socket.request.connection._peername);
     socket.on('storeClientInfo', function (data) {
-
+        var obj = JSON.parse(data);
         var clientInfo = new Object();
         clientInfo.customId = data.customId;
-        clientInfo.clientId = socket.id;
+        clientInfo.clientId = obj.id;
         clients.push(clientInfo);
+        //console.log(socket.id + "  " + obj.id);
+
+
+
 
         console.log(clients);
     });
 
-    console.log("array ids" + clients);
+    //console.log("array ids" + clients);
 
-    socket.emit('messages', messages);
+   // socket.emit('messages', messages);
 
     socket.on('new-message', function (data) {
         messages.push(data);
-
+        console.log("llega mensaje");
+        console.log(data);
         io.sockets.emit('messages', messages);
     });
 });
